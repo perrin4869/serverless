@@ -41,7 +41,6 @@ if (isMainModule) {
 
   const path = require('path');
   const localInstallationPath = require('../lib/cli/local-serverless-path');
-
   if (localInstallationPath && localInstallationPath !== path.dirname(__dirname)) {
     // Local fallback
     const localServerlessBinPath = (() => {
@@ -73,13 +72,26 @@ require('../lib/cli/triage')().then((cliName) => {
     case 'serverless':
       require('../scripts/serverless');
       return;
-    case 'serverless-tencent':
-      require('../lib/cli/run-serverless-tencent')().catch((error) => {
+    case '@serverless/compose':
+      require('../lib/cli/run-compose')().catch((error) => {
         // Expose eventual resolution error as regular crash, and not unhandled rejection
         process.nextTick(() => {
           throw error;
         });
       });
+      return;
+    case 'serverless-tencent':
+      {
+        const chalk = require('chalk');
+        process.stdout.write(
+          `${[
+            'Serverless Framework CLI no longer supports Serverless Tencent CLI',
+            '',
+            'To run Serverless Framework without issues in China region, ' +
+              `ensure: ${chalk.bold('SLS_GEO_LOCATION=no-cn')} environment variable`,
+          ].join('\n')}\n`
+        );
+      }
       return;
     case '@serverless/components':
       {

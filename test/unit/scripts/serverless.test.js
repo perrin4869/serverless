@@ -125,6 +125,20 @@ describe('test/unit/scripts/serverless.test.js', () => {
     ).to.include('looks: good');
   });
 
+  it('should support "-c" flag for "aws-service" commands', async () => {
+    try {
+      await spawn('node', [serverlessPath, 'info', '-c', 'serverless.custom.yml'], {
+        cwd: path.resolve(programmaticFixturesPath, 'custom-config-filename'),
+      });
+      throw new Error('Unexpected');
+    } catch (error) {
+      // The way to validate it is to check if command errors out with missing credentials
+      // at this point we know the configuration was resolved properly
+      expect(error.code).to.equal(1);
+      expect(String(error.stdoutBuffer)).to.include('AWS provider credentials not found');
+    }
+  });
+
   it('should rejected unresolved "provider" section', async () => {
     try {
       await spawn('node', [serverlessPath, 'print'], {
@@ -211,6 +225,20 @@ describe('test/unit/scripts/serverless.test.js', () => {
     }
   });
 
+  it('should support custom variable soruces', async () => {
+    const { servicePath: serviceDir } = await programmaticFixturesEngine.setup('plugin', {
+      configExt: {
+        custom: {
+          otherVar: '${other:addressValue}',
+        },
+        plugins: ['./custom-variable-source'],
+      },
+    });
+    expect(
+      String((await spawn('node', [serverlessPath, 'print'], { cwd: serviceDir })).stdoutBuffer)
+    ).to.include('otherVar: Resolving variable addressValue');
+  });
+
   it('should reject unresolved "plugins" property', async () => {
     try {
       await spawn('node', [serverlessPath, 'print'], {
@@ -224,6 +252,19 @@ describe('test/unit/scripts/serverless.test.js', () => {
     } catch (error) {
       expect(error.code).to.equal(1);
       expect(String(error.stdoutBuffer)).to.include('"plugins" property is not accessible');
+    }
+  });
+
+  it('should throw meaningful error on unrecognized command for custom provider', async () => {
+    try {
+      await spawn('node', [serverlessPath, 'foo'], {
+        cwd: (await programmaticFixturesEngine.setup('custom-provider')).servicePath,
+      });
+      throw new Error('Unexpected');
+    } catch (error) {
+      if (!error.code) throw error;
+      expect(error.code).to.equal(1);
+      expect(String(error.stdoutBuffer)).to.include('command "foo" not found');
     }
   });
 

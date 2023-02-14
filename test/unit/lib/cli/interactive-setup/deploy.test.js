@@ -61,7 +61,30 @@ describe('test/unit/lib/cli/interactive-setup/deploy.test.js', () => {
 
     expect(
       await mockedStep.isApplicable({
-        configuration: { provider: { name: 'aws' }, org: 'someorg' },
+        configuration: { provider: { name: 'aws' }, org: 'someorg', app: 'someapp' },
+        serviceDir: '/foo',
+        options: {},
+        history: new Map([['awsCredentials', []]]),
+      })
+    ).to.equal(true);
+  });
+
+  it('Should be applied if service instance has a linked provider but disabled dashboard monitoring', async () => {
+    const mockedStep = proxyquire('../../../../../lib/cli/interactive-setup/deploy', {
+      '@serverless/dashboard-plugin/lib/is-authenticated': () => true,
+      './utils': {
+        doesServiceInstanceHaveLinkedProvider: () => true,
+      },
+    });
+
+    expect(
+      await mockedStep.isApplicable({
+        configuration: {
+          provider: { name: 'aws' },
+          org: 'someorg',
+          app: 'someapp',
+          dashboard: { disableMonitoring: true },
+        },
         serviceDir: '/foo',
         options: {},
         history: new Map([['awsCredentials', []]]),

@@ -64,6 +64,26 @@ functions:
           startingPosition: LATEST
 ```
 
+Optionally, you can provide the following properties:
+
+- `consumerGroupId` - the consumer group id to use for consuming messages
+
+For example:
+
+```yml
+functions:
+  compute:
+    handler: handler.compute
+    events:
+      - msk:
+          arn: arn:aws:kafka:region:XXXXXX:cluster/MyCluster/xxxx-xxxxx-xxxx
+          topic: mytopic
+          batchSize: 1000
+          maximumBatchingWindow: 30
+          startingPosition: LATEST
+          consumerGroupId: MyConsumerGroupId
+```
+
 ## Enabling and disabling MSK event
 
 The `msk` event also supports `enabled` parameter, which is used to control if the event source mapping is active. Setting it to `false` will pause polling for and processing new messages.
@@ -79,6 +99,42 @@ functions:
           arn: arn:aws:kafka:region:XXXXXX:cluster/MyCluster/xxxx-xxxxx-xxxx
           topic: mytopic
           enabled: false
+```
+
+## Enabling authentication
+
+In order to authenticate to the `msk` you can set the `saslScram512`, which sets the authentication protocol.
+
+```yml
+functions:
+  compute:
+    handler: handler.compute
+    events:
+      - msk:
+          arn: arn:aws:kafka:region:XXXXXX:cluster/MyCluster/xxxx-xxxxx-xxxx
+          topic: mytopic
+          saslScram512: arn:aws:secretsmanager:region:XXXXXX:secret:AmazonMSK_xxxxxx
+```
+
+## Setting filter patterns
+
+This configuration allows customers to filter event before lambda invocation. It accepts up to 5 filter criterion by default and up to 10 with quota extension. If one event matches at least 1 pattern, lambda will process it.
+
+For more details and examples of filter patterns, please see the [AWS event filtering documentation](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html)
+
+Note: Serverless only sets this property if you explicitly add it to the `msk` configuration (see an example below). The following example will only process records that are published in the MSK cluster where field `a` is equal to 1 or 2.
+
+```yml
+functions:
+  compute:
+    handler: handler.compute
+    events:
+      - msk:
+          arn: arn:aws:kafka:region:XXXXXX:cluster/MyCluster/xxxx-xxxxx-xxxx
+          topic: mytopic
+          filterPatterns:
+            - value:
+                a: [1]
 ```
 
 ## IAM Permissions

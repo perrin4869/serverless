@@ -11,9 +11,11 @@ describe('test/unit/lib/plugins/aws/package/compile/events/rabbitmq.test.js', ()
   const brokerArn = 'arn:aws:mq:us-east-1:0000:broker:ExampleMQBroker:b-xxx-xxx';
   const basicAuthArn = 'arn:aws:secretsmanager:us-east-1:01234567890:secret:MyBrokerSecretName';
   const queue = 'TestingQueue';
+  const virtualHost = '/';
   const enabled = false;
   const batchSize = 5000;
   const maximumBatchingWindow = 20;
+  const filterPatterns = [{ value: { a: [1, 2] } }, { value: [3] }];
 
   describe('when there are rabbitmq events defined', () => {
     let minimalEventSourceMappingResource;
@@ -42,11 +44,13 @@ describe('test/unit/lib/plugins/aws/package/compile/events/rabbitmq.test.js', ()
                 {
                   rabbitmq: {
                     queue,
+                    virtualHost,
                     arn: brokerArn,
                     basicAuthArn,
                     batchSize,
                     maximumBatchingWindow,
                     enabled,
+                    filterPatterns,
                   },
                 },
               ],
@@ -111,10 +115,28 @@ describe('test/unit/lib/plugins/aws/package/compile/events/rabbitmq.test.js', ()
             Type: 'BASIC_AUTH',
             URI: basicAuthArn,
           },
+          {
+            Type: 'VIRTUAL_HOST',
+            URI: virtualHost,
+          },
         ],
         Queues: [queue],
         FunctionName: {
           'Fn::GetAtt': [naming.getLambdaLogicalId('other'), 'Arn'],
+        },
+        FilterCriteria: {
+          Filters: [
+            {
+              Pattern: JSON.stringify({
+                value: { a: [1, 2] },
+              }),
+            },
+            {
+              Pattern: JSON.stringify({
+                value: [3],
+              }),
+            },
+          ],
         },
       });
     });
@@ -149,6 +171,7 @@ describe('test/unit/lib/plugins/aws/package/compile/events/rabbitmq.test.js', ()
                     queue,
                     arn: brokerArn,
                     basicAuthArn,
+                    virtualHost,
                   },
                 },
               ],

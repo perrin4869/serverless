@@ -98,7 +98,7 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
 
     const context = {
       serviceDir: process.cwd(),
-      configuration: { provider: { name: 'aws' }, org: 'someorg' },
+      configuration: { provider: { name: 'aws' }, org: 'someorg', app: 'someapp' },
       configurationFilename: 'serverless.yml',
     };
     expect(await mockedStep.isApplicable(context)).to.be.false;
@@ -197,7 +197,7 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
     ).to.be.true;
   });
 
-  it('Should be ineffective dashboard is not available', async () => {
+  it('Should be ineffective when dashboard is not available', async () => {
     const internalMockedSdk = {
       ...mockedSdk,
       getProviders: async () => {
@@ -216,7 +216,7 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
     expect(
       await mockedStep.isApplicable({
         serviceDir: process.cwd(),
-        configuration: { provider: { name: 'aws' }, org: 'someorg' },
+        configuration: { provider: { name: 'aws' }, org: 'someorg', app: 'someapp' },
         configurationFilename: 'serverless.yml',
       })
     ).to.be.false;
@@ -555,48 +555,6 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
       );
     });
 
-    it('Should emit warning when dashboard unavailable when connecting to it', async () => {
-      const mockedOpenBrowser = sinon.stub().returns();
-      const internalMockedSdk = {
-        ...mockedSdk,
-        connect: () => {
-          const err = new Error('error');
-          err.statusCode = 500;
-          throw err;
-        },
-      };
-      const mockedStep = proxyquire('../../../../../lib/cli/interactive-setup/aws-credentials', {
-        '@serverless/dashboard-plugin/lib/client-utils': {
-          getPlatformClientWithAccessKey: async () => internalMockedSdk,
-        },
-        '../../utils/open-browser': mockedOpenBrowser,
-      });
-
-      configureInquirerStub(inquirer, {
-        list: { credentialsSetupChoice: '_create_provider_' },
-      });
-
-      const context = {
-        serviceDir: process.cwd(),
-        configuration: {
-          service: 'someservice',
-          provider: { name: 'aws' },
-          org: 'someorg',
-          app: 'someapp',
-        },
-        configurationFilename: 'serverless.yml',
-        stepHistory: new StepHistory(),
-      };
-      await mockedStep.run(context);
-
-      expect(mockedOpenBrowser).to.have.been.calledWith(
-        'https://app.serverless.com/someorg/settings/providers?source=cli&providerId=new&provider=aws'
-      );
-      expect(context.stepHistory.valuesMap()).to.deep.equal(
-        new Map([['credentialsSetupChoice', '_create_provider_']])
-      );
-    });
-
     it('Should correctly setup with existing provider', async () => {
       const providerUid = 'provideruid';
       const mockedCreateProviderLink = sinon.stub().resolves();
@@ -623,6 +581,7 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
         '@serverless/dashboard-plugin/lib/client-utils': {
           getPlatformClientWithAccessKey: async () => internalMockedSdk,
         },
+        '@serverless/dashboard-plugin/lib/is-authenticated': () => true,
       });
 
       configureInquirerStub(inquirer, {
@@ -684,6 +643,7 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
         '@serverless/dashboard-plugin/lib/client-utils': {
           getPlatformClientWithAccessKey: async () => internalMockedSdk,
         },
+        '@serverless/dashboard-plugin/lib/is-authenticated': () => true,
       });
 
       configureInquirerStub(inquirer, {
@@ -733,7 +693,7 @@ describe('test/unit/lib/cli/interactive-setup/aws-credentials.test.js', () => {
 
       await mockedStep.run({
         serviceDir: process.cwd(),
-        configuration: { provider: { name: 'aws' }, org: 'someorg' },
+        configuration: { provider: { name: 'aws' }, org: 'someorg', app: 'someapp' },
         options: {},
         configurationFilename: 'serverless.yml',
       });

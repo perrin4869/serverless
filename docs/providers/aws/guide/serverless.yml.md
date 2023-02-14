@@ -83,6 +83,9 @@ provider:
   # Optional CloudFormation tags to apply to the stack
   stackTags:
     key: value
+  # Method used for CloudFormation deployments: 'changesets' or 'direct' (default: changesets)
+  # See https://www.serverless.com/framework/docs/providers/aws/guide/deploying#deployment-method
+  deploymentMethod: direct
   # List of existing Amazon SNS topics in the same region where notifications about stack events are sent.
   notificationArns:
     - 'arn:aws:sns:us-east-1:XXXXXX:mytopic'
@@ -114,6 +117,7 @@ Some function settings can be defined for all functions inside the `provider` ke
 
 provider:
   runtime: nodejs14.x
+  runtimeManagement: auto # optional, set how Lambda controls all functions runtime. AWS default is auto; this can either be 'auto' or 'onFunctionUpdate'. For 'manual', see example in hello function below (syntax for both is identical
   # Default memory size for functions (default: 1024MB)
   memorySize: 512
   # Default timeout for functions (default: 6 seconds)
@@ -123,7 +127,12 @@ provider:
   environment:
     APP_ENV_VARIABLE: FOOBAR
   # Duration for CloudWatch log retention (default: forever)
+  # Valid values: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
   logRetentionInDays: 14
+  # Policy defining how to monitor and mask sensitive data in CloudWatch logs
+  # Policy format: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/mask-sensitive-log-data-start.html
+  logDataProtectionPolicy:
+    Name: data-protection-policy
   # KMS key ARN to use for encryption for all functions
   kmsKeyArn: arn:aws:kms:us-east-1:XXXXXX:key/some-hash
   # Version of hashing algorithm used by Serverless Framework for function packaging
@@ -236,7 +245,7 @@ provider:
   # Use a custom name for the API Gateway API
   apiName: custom-api-name
   # Endpoint type for API Gateway REST API: edge or regional (default: edge)
-  endpointType: regional
+  endpointType: REGIONAL
   # Use a custom name for the websockets API
   websocketsApiName: custom-websockets-api-name
   # custom route selection expression
@@ -261,7 +270,7 @@ provider:
     apiKeySourceType: HEADER
     # List of API keys for the REST API
     apiKeys:
-      - myFirstKey
+      - name: myFirstKey
         value: myFirstKeyValue
         description: myFirstKeyDescription
         customerId: myFirstKeyCustomerId
@@ -309,7 +318,7 @@ provider:
           # Optional: Name of the API Gateway model
           name: GlobalModel
           # Optional: Description of the API Gateway model
-          description: "A global model that can be referenced in functions"
+          description: 'A global model that can be referenced in functions'
 ```
 
 ### ALB
@@ -540,8 +549,16 @@ provider:
     # Enable Websocket API logs
     # This can either be set to `websocket: true` to use defaults, or configured via subproperties.
     websocket:
-      # Log level to use for execution logging: INFO or ERROR.
+      # Enables HTTP access logs (default: true)
+      accessLogging: true
+      # Log format to use for access logs
+      format: 'requestId: $context.requestId'
+      # Enable execution logging (default: true)
+      executionLogging: true
+      # Log level to use for execution logging: INFO or ERROR
       level: INFO
+      # Log full requests/responses for execution logging (default: true)
+      fullExecutionData: true
 
     # Optional, whether to write CloudWatch logs for custom resource lambdas as added by the framework
     frameworkLambda: true
@@ -604,6 +621,9 @@ functions:
     # Can be the URI of an image in ECR, or the name of an image defined in 'provider.ecr.images'
     image: baseimage
     runtime: nodejs14.x
+    runtimeManagement:
+      mode: manual # syntax required for manual, mode property also supports 'auto' or 'onFunctionUpdate' (see provider.runtimeManagement)
+      arn: <aws runtime arn> # required when mode is manual
     # Memory size (default: 1024MB)
     memorySize: 512
     # Timeout (default: 6 seconds)
@@ -612,6 +632,8 @@ functions:
     # Function environment variables
     environment:
       APP_ENV_VARIABLE: FOOBAR
+    # Configure the size of ephemeral storage available to your Lambda function (in MBs, default: 512)
+    ephemeralStorageSize: 512
     # Override the Lambda function name
     name: ${sls:stage}-lambdaName
     description: My function
@@ -627,8 +649,12 @@ functions:
     onError: arn:aws:sns:us-east-1:XXXXXX:sns-topic
     # KMS key ARN to use for encryption for this function
     kmsKeyArn: arn:aws:kms:us-east-1:XXXXXX:key/some-hash
+    # Defines if you want to make use of SnapStart, this feature can only be used in combination with a Java runtime. Configuring this property will result in either None or PublishedVersions for the Lambda function
+    snapStart: true
     # Disable the creation of the CloudWatch log group
     disableLogs: false
+    # Duration for CloudWatch log retention (default: forever).
+    logRetentionInDays: 14
     tags: # Function specific tags
       foo: bar
     # VPC settings for this function
@@ -641,6 +667,21 @@ functions:
       subnetIds:
         - subnetId1
         - subnetId2
+    # Lambda URL definition for this function, optional
+    # Can be defined as `true` which will create URL without authorizer and cors settings
+    url:
+      authorizer: 'aws_iam' # Authorizer used for calls to Lambda URL
+      cors:  # CORS configuration for Lambda URL, can also be defined as `true` with default CORS configuration
+        allowedOrigins:
+          - *
+        allowedHeaders:
+          - Authorization
+        allowedMethods:
+          - GET
+        allowCredentials: true
+        exposedResponseHeaders:
+          - SomeHeader
+        maxAge: 3600
     # Packaging rules specific to this function
     package:
       # Directories and files to include in the deployed package
@@ -666,16 +707,24 @@ functions:
       - MyOtherThing
     # Lambda destination settings
     destinations:
-      # Function name or ARN of target (EventBridge/SQS/SNS topic)
+      # Function name or ARN (or reference) of target (EventBridge/SQS/SNS topic)
       onSuccess: functionName
-      # Function name or ARN of target (EventBridge/SQS/SNS topic)
-      onFailure: xxx:xxx:target
+      # Function name or ARN (or reference) of target (EventBridge/SQS/SNS topic)
+      onFailure: arn:xxx:target
+      onFailure:
+        type: sns
+        arn:
+          Ref: SomeTopicName
     # Mount an EFS filesystem
     fileSystemConfig:
       # ARN of EFS Access Point
       arn: arn:aws:elasticfilesystem:us-east-1:11111111:access-point/fsap-a1a1a1
       # Path under which EFS will be mounted and accessible in Lambda
       localMountPath: /mnt/example
+    # Maximum retry attempts when an asynchronous invocation fails (between 0 and 2; default: 2)
+    maximumRetryAttempts: 1
+    # Maximum event age in seconds when invoking asynchronously (between 60 and 21600)
+    maximumEventAge: 7200
 ```
 
 ## Lambda events
@@ -750,7 +799,7 @@ functions:
               querystrings:
                 paramName: true # mark query string
             # Request schema validation mapped by content type
-            schema:
+            schemas:
               # Define the valid JSON Schema for this content-type
               application/json: ${file(create_request.json)}
               application/json+abc:
@@ -805,6 +854,8 @@ functions:
           # Set to 'true' when using an existing bucket
           # Else the bucket will be automatically created
           existing: true
+          # Optional, for forcing deployment of triggers on existing S3 buckets
+          forceDeploy: true
 ```
 
 ### Schedule
@@ -852,6 +903,7 @@ functions:
             pet:
               - dog
               - cat
+          filterPolicyScope: MessageAttributes
           redrivePolicy:
             # (1) ARN
             deadLetterTargetArn: arn:aws:sqs:us-east-1:11111111111:myDLQ
@@ -928,6 +980,14 @@ functions:
           startingPosition: LATEST
           # (default: true)
           enabled: false
+          # Optional, arn of the secret key for authenticating with the brokers in your MSK cluster.
+          saslScram512: arn:aws:secretsmanager:region:XXXXXX:secret:AmazonMSK_xxxxxx
+          # Optional, specifies the consumer group ID to be used when consuming from Kafka. If not provided, a random UUID will be generated
+          consumerGroupId: MyConsumerGroupId
+          # Optional, specifies event pattern content filtering
+          filterPatterns:
+            - value:
+                a: [1, 2]
 ```
 
 ### ActiveMQ
@@ -954,6 +1014,10 @@ functions:
           startingPosition: LATEST
           # (default: true)
           enabled: false
+          # Optional, specifies event pattern content filtering
+          filterPatterns:
+            - value:
+                a: [1, 2]
 ```
 
 ### Kafka
@@ -979,10 +1043,17 @@ functions:
           batchSize: 100
           # Optional, must be in 0-300 range (seconds)
           maximumBatchingWindow: 30
-          # Optional, can be set to LATEST or TRIM_HORIZON
+          # Optional, can be set to LATEST, AT_TIMESTAMP or TRIM_HORIZON
           startingPosition: LATEST
+          # Mandatory when startingPosition is AT_TIMESTAMP
+          startingPositionTimestamp: 10000123
           # (default: true)
           enabled: false
+          # Optional, specifies the consumer group ID to be used when consuming from Kafka. If not provided, a random UUID will be generated
+          consumerGroupId: MyConsumerGroupId
+          # Optional, specifies event pattern content filtering
+          filterPatterns:
+            - eventName: INSERT
 ```
 
 ### RabbitMQ
@@ -999,6 +1070,8 @@ functions:
           arn: arn:aws:mq:us-east-1:0000:broker:ExampleMQBroker:b-xxx-xxx
           # Name of RabbitMQ queue consume from
           queue: queue-name
+          # Name of RabbitMQ virtual host to consume from
+          virtualHost: virtual-host
           # Secrets Manager ARN for basic auth credentials
           basicAuthArn: arn:aws:secretsmanager:us-east-1:01234567890:secret:MySecret
           # Optional, must be in 1-10000 range
@@ -1009,6 +1082,10 @@ functions:
           startingPosition: LATEST
           # (default: true)
           enabled: false
+          # Optional, specifies event pattern content filtering
+          filterPatterns:
+            - value:
+                a: [1, 2]
 ```
 
 ### Alexa
@@ -1097,6 +1174,14 @@ functions:
           # Optional, if you're referencing an existing User Pool
           existing: true
           # Optional, for forcing deployment of triggers on existing User Pools
+          forceDeploy: true
+      - cognitoUserPool:
+          pool: MyUserPool
+          trigger: CustomEmailSender
+          # Required, if you're using the CustomSMSSender or CustomEmailSender triggers
+          # Can either be KMS Key ARN string or reference to KMS Key Resource ARN
+          kmsKeyId: 'arn:aws:kms:eu-west-1:111111111111:key/12345678-9abc-def0-1234-56789abcdef1'
+          existing: true
           forceDeploy: true
 ```
 

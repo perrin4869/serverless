@@ -14,8 +14,6 @@ const fixtures = require('../../../../fixtures/programmatic');
 const versions = {
   'serverless': require('../../../../../package').version,
   '@serverless/dashboard-plugin': require('@serverless/dashboard-plugin/package').version,
-  '@serverless/aws-lambda-otel-extension-dist':
-    require('@serverless/aws-lambda-otel-extension-dist/package').version,
 };
 
 const getGeneratePayload = () =>
@@ -54,6 +52,10 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
           withContainer: {
             image:
               '000000000000.dkr.ecr.sa-east-1.amazonaws.com/test-lambda-docker@sha256:6bb600b4d6e1d7cf521097177dd0c4e9ea373edb91984a505333be8ac9455d38',
+          },
+          withUrl: {
+            handler: 'index.handler',
+            url: true,
           },
         },
         resources: {
@@ -150,11 +152,12 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
         },
         plugins: [],
         functions: [
-          { runtime: 'nodejs14.x', events: [{ type: 'httpApi' }, { type: 'httpApi' }] },
-          { runtime: 'nodejs14.x', events: [{ type: 'httpApi' }] },
-          { runtime: 'nodejs14.x', events: [] },
-          { runtime: 'nodejs14.x', events: [] },
-          { runtime: '$containerimage', events: [] },
+          { runtime: 'nodejs14.x', events: [{ type: 'httpApi' }, { type: 'httpApi' }], url: false },
+          { runtime: 'nodejs14.x', events: [{ type: 'httpApi' }], url: false },
+          { runtime: 'nodejs14.x', events: [], url: false },
+          { runtime: 'nodejs14.x', events: [], url: false },
+          { runtime: '$containerimage', events: [], url: false },
+          { runtime: 'nodejs14.x', events: [], url: true },
         ],
         resources: {
           general: ['AWS::Logs::LogGroup', 'AWS::S3::Bucket', 'Custom'],
@@ -163,6 +166,7 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
         paramsCount: 0,
       },
       isAutoUpdateEnabled: false,
+      isUsingCompose: false,
       notificationsMode: 'on',
       npmDependencies: ['fooDep', 'barDep', 'fooOpt', 'someDev', 'otherDev'],
       triggeredDeprecations: [],
@@ -219,14 +223,15 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
         },
         plugins: ['./custom-provider'],
         functions: [
-          { runtime: 'foo', events: [{ type: 'someEvent' }] },
-          { runtime: 'bar', events: [] },
+          { runtime: 'foo', events: [{ type: 'someEvent' }], url: false },
+          { runtime: 'bar', events: [], url: false },
         ],
         resources: undefined,
         variableSources: [],
         paramsCount: 0,
       },
       isAutoUpdateEnabled: false,
+      isUsingCompose: false,
       notificationsMode: 'on',
       npmDependencies: [],
       triggeredDeprecations: [],
@@ -268,6 +273,7 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
       command: 'config',
       commandOptionNames: [],
       isAutoUpdateEnabled: false,
+      isUsingCompose: false,
       notificationsMode: 'on',
       triggeredDeprecations: [],
       installationType: 'global:other',
@@ -322,6 +328,7 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
         paramsCount: 0,
       },
       isAutoUpdateEnabled: false,
+      isUsingCompose: false,
       triggeredDeprecations: [],
       installationType: 'global:other',
       notificationsMode: 'on',
@@ -361,6 +368,7 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
       command: 'plugin list',
       commandOptionNames: [],
       isAutoUpdateEnabled: false,
+      isUsingCompose: false,
       notificationsMode: 'on',
       triggeredDeprecations: [],
       installationType: 'global:other',
@@ -388,7 +396,6 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
       configuration: { service: 'foo', provider: 'aws' },
     });
     expect(payload.dashboard.userId).to.equal('some-user-id');
-    expect(payload.console.userId).to.equal('some-user-id');
     expect(payload.frameworkLocalUserId).to.equal('123');
     expect(payload.firstLocalInstallationTimestamp).to.equal(1616151998);
   });
@@ -414,7 +421,6 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
       });
     });
     expect(payload.dashboard.userId).to.be.null;
-    expect(payload.console.userId).to.be.null;
     expect(payload.frameworkLocalUserId).to.equal('123');
   });
 
@@ -681,5 +687,19 @@ describe('test/unit/lib/utils/telemetry/generatePayload.test.js', () => {
     });
 
     expect(payload.config.paramsCount).to.equal(4);
+  });
+
+  it('Should correctly resolve `isUsingCompose` property', async () => {
+    let payload;
+    overrideEnv({ variables: { SLS_COMPOSE: '1' } }, () => {
+      payload = getGeneratePayload()({
+        command: 'print',
+        options: {},
+        commandSchema: commandsSchema.get('print'),
+        serviceDir: process.cwd(),
+        configuration: { service: 'foo', provider: 'aws' },
+      });
+    });
+    expect(payload.isUsingCompose).to.be.true;
   });
 });

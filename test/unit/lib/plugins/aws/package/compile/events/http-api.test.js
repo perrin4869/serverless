@@ -129,18 +129,8 @@ describe('lib/plugins/aws/package/compile/events/httpApi.test.js', () => {
       expect(resource.Properties.RouteKey).to.equal(routeKey);
     });
 
-    it('should ensure higher timeout than function default value', () => {
+    it('should set the default api gateway timeout by setting the TimeoutInMillis property', () => {
       const resource = cfResources[naming.getHttpApiIntegrationLogicalId('foo')];
-      expect(resource.Properties.TimeoutInMillis).to.equal(6500);
-    });
-
-    it('should provide 0.5s time margin to custom function integration timeout', () => {
-      const resource = cfResources[naming.getHttpApiIntegrationLogicalId('customTimeout')];
-      expect(resource.Properties.TimeoutInMillis).to.equal(29500);
-    });
-
-    it('should limit function maximum integration timeout to 30s', () => {
-      const resource = cfResources[naming.getHttpApiIntegrationLogicalId('maxTimeout')];
       expect(resource.Properties.TimeoutInMillis).to.equal(30000);
     });
 

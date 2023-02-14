@@ -50,6 +50,7 @@ functions:
       - rabbitmq:
           arn: arn:aws:mq:us-east-1:0000:broker:ExampleMQBroker:b-xxx-xxx
           queue: queue-name
+          virtualHost: virtual-host
           enabled: false
           basicAuthArn: arn:aws:secretsmanager:us-east-1:01234567890:secret:MySecret
 ```
@@ -70,6 +71,28 @@ functions:
           batchSize: 5000
           maximumBatchingWindow: 30
           basicAuthArn: arn:aws:secretsmanager:us-east-1:01234567890:secret:MySecret
+```
+
+## Setting filter patterns
+
+This configuration allows customers to filter event before lambda invocation. It accepts up to 5 filter criterion by default and up to 10 with quota extension. If one event matches at least 1 pattern, lambda will process it.
+
+For more details and examples of filter patterns, please see the [AWS event filtering documentation](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html)
+
+Note: Serverless only sets this property if you explicitly add it to the `rabbitmq` configuration (see an example below). The following example will only process records that are published in to Amazon MQ for RabbitMQ where field `a` is equal to 1 or 2.
+
+```yml
+functions:
+  compute:
+    handler: handler.compute
+    events:
+      - rabbitmq:
+          arn: arn:aws:mq:us-east-1:0000:broker:ExampleMQBroker:b-xxx-xxx
+          queue: queue-name
+          basicAuthArn: arn:aws:secretsmanager:us-east-1:01234567890:secret:MySecret
+          filterPatterns:
+            - value:
+                a: [1]
 ```
 
 ## IAM Permissions

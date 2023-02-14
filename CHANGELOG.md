@@ -2,6 +2,518 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.27.0](https://github.com/serverless/serverless/compare/v3.26.0...v3.27.0) (2023-01-26)
+
+### Features
+
+- **AWS EventBridge:** Support `functions[].events[].eventBridge.name` ([#11690](https://github.com/serverless/serverless/issues/11690)) ([b925c4c](https://github.com/serverless/serverless/commit/b925c4cf9c2f6a2dddf9eae10b0e62a88f40ff41)) ([ROSeaboyer](https://github.com/ROSeaboyer))
+- **AWS ActiveMQ:** Support `functions[].events[].filterPatterns` ([#11656](https://github.com/serverless/serverless/issues/11656)) ([1b55710](https://github.com/serverless/serverless/commit/1b55710f0a869aff2b0d5dfc499a487eb62d204d)) ([Shreyance Jain](https://github.com/shreyance-jain))
+- **AWS Kafka:** Support `functions[].events[].filterPatterns` ([#11645](https://github.com/serverless/serverless/issues/11645)) ([6a5e8d9](https://github.com/serverless/serverless/commit/6a5e8d9ff3ce3cd526470ef3418f3e08c9d3dc76)) ([Jason Rowsell](https://github.com/jasonrowsell))
+- **AWS MSK:** Support `functions[].events[].filterPatterns` ([#11636](https://github.com/serverless/serverless/issues/11636)) ([63584a9](https://github.com/serverless/serverless/commit/63584a9a0d1a9523c23367de47e7fe575c5cf12b)) ([Shreyance Jain](https://github.com/shreyance-jain))
+- **AWS RabbitMQ:** Support `functions[].events[].filterPatterns` ([#11659](https://github.com/serverless/serverless/issues/11659)) ([e769570](https://github.com/serverless/serverless/commit/e769570704fee372c2fa849c332d476d38e858be)) ([Shreyance Jain](https://github.com/shreyance-jain))
+- **AWS CloudFront:** Recognize `behavior.ResponseHeadersPolicyId` ([#11633](https://github.com/serverless/serverless/issues/11633)) ([906ea31](https://github.com/serverless/serverless/commit/906ea319dd1486f79d6e088a999fd5634526c4bc)) ([Jason Rowsell](https://github.com/jasonrowsell))
+- **AWS SNS:** Support `functions[].events[].filterPolicyScope` ([#11644](https://github.com/serverless/serverless/issues/11644)) ([b7d6af6](https://github.com/serverless/serverless/commit/b7d6af6b1309a5b4fbfac54265e7900196416976)) ([Jason Rowsell](https://github.com/jasonrowsell))
+- **AWS SQS:** Support `functions[].events[].sqs.maximumConcurrency` ([#11678](https://github.com/serverless/serverless/issues/11678)) ([57f2719](https://github.com/serverless/serverless/commit/57f27193e052b01cd67745c7576f77b2d8988a6f)) ([Jason Rowsell](https://github.com/jasonrowsell))
+- **AWS Lambda:** Recognize `ap-southeast-4` Melbourne region ([#11700](https://github.com/serverless/serverless/issues/11700)) ([6591504](https://github.com/serverless/serverless/commit/6591504000f16974f83db1fb0b599fdacf688c52)) ([Sam Chung](https://github.com/samchungy))
+- Recognize `Fn::Base64` as CloudFormation instruction ([#11671](https://github.com/serverless/serverless/issues/11671)) ([f020bd8](https://github.com/serverless/serverless/commit/f020bd823905f012d2936a876e0ea841f5688883)) ([Ron Korving](https://github.com/mt-ronkorving))
+- Remove support for Serverless Tencent CLI ([#11658](https://github.com/serverless/serverless/issues/11658)) ([0a148b4](https://github.com/serverless/serverless/commit/0a148b444c535df262bf79111066df03216f2f58)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **AWS SQS:** Optimize IAM permissions generation ([#11685](https://github.com/serverless/serverless/issues/11685)) ([99cd9e6](https://github.com/serverless/serverless/commit/99cd9e69c14583c428c4fdb01496151c9582eb5b)) ([ROSeaboyer](https://github.com/ROSeaboyer))
+- **Console:** Improve warning message ([#117009](https://github.com/serverless/serverless/issues/11709)) ([2198799](https://github.com/serverless/serverless/commit/2198799f73e9fdbbdc377c8effcea8f1a933eff7)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.26.0](https://github.com/serverless/serverless/compare/v3.25.1...v3.26.0) (2022-12-22)
+
+### Features
+
+- **Plugins:** Support variables in configuration extensions ([#11558](https://github.com/serverless/serverless/issues/11558)) ([968ddd5](https://github.com/serverless/serverless/commit/968ddd5994750a6d1677f195f7a86a823c558d16)) ([Marco Kleinlein](https://github.com/mklenbw))
+- **AWS Lambda:** `functions[].snapStart` support ([#11576](https://github.com/serverless/serverless/issues/11576)) ([adf11b7](https://github.com/serverless/serverless/commit/adf11b75e51aefe468005d9daa656377f02ae5ac)) ([Baerten Dennis](https://github.com/debae))
+- `provider.logDataProtectionPolicy` and `functions[].logDataProtectionPolicy` ([#11599](https://github.com/serverless/serverless/issues/11599)) ([2a5e11a](https://github.com/serverless/serverless/commit/2a5e11a9977708504e95e011f1cf401a43b94237)) ([timo92](https://github.com/timo92))
+- Support `.cjs` and `.mjs` configuration extensions ([#11586](https://github.com/serverless/serverless/issues/11586)) ([9d57933](https://github.com/serverless/serverless/commit/9d579336fadea1080f86f85e3fc304a102ab07f6)) ([Florian Proksch](https://github.com/RianFuro))
+
+### Bug Fixes
+
+- **Variables:** Support empty string environment variables ([#11629](https://github.com/serverless/serverless/issues/11629)) ([022db9c](https://github.com/serverless/serverless/commit/022db9c8a309fcd7cd58bf7d6fc066acd411a679)) ([Jason Rowsell](https://github.com/jasonrowsell))
+- **AWS Local Invoke:** Revert breaking jackson-databind upgrade ([#11589](https://github.com/serverless/serverless/issues/11589)) ([f00eb82](https://github.com/serverless/serverless/commit/f00eb824c201a09206337a34aab700500314fe50)) ([Geoff Denning](https://github.com/gdenning))
+
+### Maintenance Improvements
+
+- Isolate `import` invocations ([#11587](https://github.com/serverless/serverless/issues/11587)) ([fe62096](https://github.com/serverless/serverless/commit/fe620965838b2fce2a0aa3f9c8aaaf47e4faf755)) ([Mariusz Nowak](https://github.com/medikoo))
+- Remove no longer applicable setting ([#11608](https://github.com/serverless/serverless/issues/11608)) ([dd5b8f6](https://github.com/serverless/serverless/commit/dd5b8f61de487d67f0cc15036be754816f7fa234)) ([Mariusz Nowak](https://github.com/medikoo))
+- Support relative paths in `import-esm` util ([#11593](https://github.com/serverless/serverless/issues/11593)) ([fcf17a6](https://github.com/serverless/serverless/commit/fcf17a608d3a24d18cac4705d412366e27a1f2d1)) ([Mariusz Nowak](https://github.com/medikoo))
+- Improve module name ([#11587](https://github.com/serverless/serverless/issues/11587)) ([ac1e0db](https://github.com/serverless/serverless/commit/ac1e0dbfa1f507e1bcdc30163e238bd412274a5d)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.25.1](https://github.com/serverless/serverless/compare/v3.25.0...v3.25.1) (2022-11-28)
+
+### Maintenance Improvements
+
+- Wokaround AWS-SDK issue by temporarily pinning v2 version ([cb81085](https://github.com/serverless/serverless/commit/cb810854a619429b8ec2a4c1dbbd77bb273d015d)) ([Mariusz Nowak](https://github.com/medikoo))
+- **AWS Local Invocation:** Upgrade Java dependencies ([#11535](https://github.com/serverless/serverless/issues/11535)) ([eb741fe](https://github.com/serverless/serverless/commit/eb741fed22773f6b4b08a67837ab39a518101825)) ([xiaokang](https://github.com/pen4))
+
+## [3.25.0](https://github.com/serverless/serverless/compare/v3.24.1...v3.25.0) (2022-11-21)
+
+### Features
+
+- **AWS Deploy:**
+  - Recognize `nodejs.18.x` runtime ([#11526](https://github.com/serverless/serverless/issues/11526)) ([c25f854](https://github.com/serverless/serverless/commit/c25f854f29204d1fb6c6254ae89d020751aa8198)) ([Piotr Grzesik](https://github.com/pgrzesik))
+  - Recognize `eu-central-2`, `eu-south-1` and `me-central-1` regions ([#11524](https://github.com/serverless/serverless/issues/11524)) ([54f4fc7](https://github.com/serverless/serverless/commit/54f4fc73b4a2277c7485b877e57ec9ced6e66d1a)) ([Umut Uzgur](https://github.com/umutuzgur))
+- **AWS API Gateway:** Allow CloudFormation intrinsic functions in `authorizer.scopes` ([#11505](https://github.com/serverless/serverless/issues/11505)) ([4169ae1](https://github.com/serverless/serverless/commit/4169ae183f64c5c580d90e653e23cc3c52a6f971)) ([franzmango](https://github.com/franzmango))
+- **AWS Kafka:** Support `startingPositionTimestamp` ([#11479](https://github.com/serverless/serverless/issues/11479)) ([858758e](https://github.com/serverless/serverless/commit/858758ea1efed07f38e491d21ecfd9873f07b4dd)) ([Daniele Iasella](https://github.com/overbit))
+
+### Bug Fixes
+
+- **AWS Deploy:** Respect existing CloudFormation templates in YAML format ([#11521](https://github.com/serverless/serverless/issues/11521)) ([20d79a2](https://github.com/serverless/serverless/commit/20d79a2876875f73755ccae4e1e2c2a9c02c9ad7)) ([Nick Graffis](https://github.com/nickgraffis))
+- Do not crash on `null` value ([#11506](https://github.com/serverless/serverless/issues/11506)) ([c4902f3](https://github.com/serverless/serverless/commit/c4902f3b103e3c683eb2a8dd04acc4e217a4d276)) ([Shogo Hida](https://github.com/shogohida))
+
+### [3.24.1](https://github.com/serverless/serverless/compare/v3.24.0...v3.24.1) (2022-11-04)
+
+### Bug Fixes
+
+- **Console:** Ensure errorneus resolution of url to not break deploys ([#11501](https://github.com/serverless/serverless/issues/11501)) ([f72c595](https://github.com/serverless/serverless/commit/f72c5958c354c47123427988f6a48528987c45cb)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.24.0](https://github.com/serverless/serverless/compare/v3.23.0...v3.24.0) (2022-10-31)
+
+### Features
+
+- **Console:** New Serverless Console integration ([#11434](https://github.com/serverless/serverless/issues/11434)) ([9a41468](https://github.com/serverless/serverless/commit/9a414683090cb3edcac61d9a782c4d136f18c6f6)) ([Mariusz Nowak](https://github.com/medikoo))
+- **AWS API Gateway:** support `provider.apiGateway.stage` ([#11487](https://github.com/serverless/serverless/issues/11487)) ([0a49c4f](https://github.com/serverless/serverless/commit/0a49c4f5df8ef4942ac4758b62a8de5dfc4bf4d8)) ([Pavan Andhukuri](https://github.com/pavanandhukuri))
+- **AWS Kinesis:** Support `AT_TIMESTAMP` starting position ([#11483](https://github.com/serverless/serverless/issues/11483)) ([5d41995](https://github.com/serverless/serverless/commit/5d41995c1939955e48cea0660dac5c32446f7b58)) ([Daniele Iasella](https://github.com/overbit))
+- Support `Fn::ToJsonString` in environment variables ([#11461](https://github.com/serverless/serverless/issues/11461)) ([0c186a6](https://github.com/serverless/serverless/commit/0c186a608fd1a754a65abf63e431ad9c2d13534e)) ([Jurriaan Proos](https://github.com/jurriaanpro))
+
+### Bug Fixes
+
+- **AWS HTTP API:** Ensure maximum API gateway timeout ([#11453](https://github.com/serverless/serverless/issues/11453)) ([c5ca9b7](https://github.com/serverless/serverless/commit/c5ca9b78faef8bc6c23b215f847dc4383b8165e7)) ([Jurriaan Proos](https://github.com/jurriaanpro))
+- **CLI Onboarding:** Ensure to not show backend notification ([#11434](https://github.com/serverless/serverless/issues/11434)) ([ba831b8](https://github.com/serverless/serverless/commit/ba831b8b3e4a9371091db9e709545adba324d822)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **CLI Onboarding:** Improve debug logs ([#11434](https://github.com/serverless/serverless/issues/11434)) ([914d00b](https://github.com/serverless/serverless/commit/914d00b0a9758b4b799242efad6e66c98e1c7160)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.23.0](https://github.com/serverless/serverless/compare/v3.22.0...v3.23.0) (2022-10-11)
+
+### Features
+
+- **AWS CloudFront:** Allow legacy behavior configuration ([#11411](https://github.com/serverless/serverless/issues/11411)) ([65e9860](https://github.com/serverless/serverless/commit/65e9860838de40c8ef0189c723e09936c8ca71a7)) ([Arthur Weber](https://github.com/godu))
+- **AWS Kafka:** Support `consumerGroupId` option ([#11345](https://github.com/serverless/serverless/issues/11345)) ([9bb3f11](https://github.com/serverless/serverless/commit/9bb3f1154151b1e1a4ca24addd034cf59deb2037)) ([Phil-Pinkowski](https://github.com/Phil-Pinkowski))
+
+### Bug Fixes
+
+- Ensure to not crash when `~/.serverless` is not accessible ([#11403](https://github.com/serverless/serverless/issues/11403)) ([b95c749](https://github.com/serverless/serverless/commit/b95c7496ec4a49aef756692a1ef59b61e2d95d4b)) ([Thomas Hamer](https://github.com/THOM-AwS))
+
+### Maintenance Improvements
+
+- **AWS Deploy:** Add bucket name to exception ([#11389](https://github.com/serverless/serverless/issues/11389)) ([11b7a05](https://github.com/serverless/serverless/commit/11b7a05fd3db362003412484245cc55bfab70181)) ([Roberto Aguilar](https://github.com/rca))
+- **AWS Deploy:** Bump custom resources to `nodejs16.x` runtime ([#11367](https://github.com/serverless/serverless/issues/11367)) ([93ce41e](https://github.com/serverless/serverless/commit/93ce41e9d8bf29519b043cf3ee2910f02c884eea)) ([Çağrı Atalay](https://github.com/cagriatalay))
+- Upgrade `dotenv-expand` to v9 ([#11433](https://github.com/serverless/serverless/issues/11433)) ([c769c1e](https://github.com/serverless/serverless/commit/c769c1e06dd3529bf7a8a1cda33d54b5a7d12ac7)) ([Mariusz Nowak](https://github.com/medikoo))
+- Upgrade `filesize` to v10 ([#11433](https://github.com/serverless/serverless/issues/11433)) ([9ef5fd2](https://github.com/serverless/serverless/commit/9ef5fd23b123730696d00985988a1bc37a3c10e0)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.22.0](https://github.com/serverless/serverless/compare/v3.21.0...v3.22.0) (2022-08-16)
+
+### Features
+
+- **AWS Cognito:** Add Support for Custom Sender Triggers ([#11201](https://github.com/serverless/serverless/issues/11201)) ([22802ef](https://github.com/serverless/serverless/commit/22802efde1d1721404b4e0d704f7806938183522)) ([AustinMathuw](https://github.com/AustinMathuw))
+
+### Bug Fixes
+
+- **AWS HTTP API:** Fix API Gateway timeout resolution ([#11223](https://github.com/serverless/serverless/issues/11223)) ([16b0cd6](https://github.com/serverless/serverless/commit/16b0cd60c9914d871eaa3639562ec580c855af43)) ([Corentin Doue](https://github.com/CorentinDoue))
+- **Variables:** Fix handling of parallel resolution of same variable ([#11299](https://github.com/serverless/serverless/issues/11299)) ([1f9a07f](https://github.com/serverless/serverless/commit/1f9a07f989fc0b56885edf8a271a0bd63cf8911f)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- Remove left over internal `self:` handling ([#11279](https://github.com/serverless/serverless/issues/11279)) ([544717e](https://github.com/serverless/serverless/commit/544717e703c093340b73dcbf94dc40555cda5251)) ([pjmattingly](https://github.com/pjmattingly))
+- **`lodash` replacement:**
+  - Replace `_.flatMap` with `Array.prototype.flatMap` ([#11272](https://github.com/serverless/serverless/issues/11272)) ([4f7e129](https://github.com/serverless/serverless/commit/4f7e12939ced5b269d53624e5643bd5a9173ed7b)) ([pjmattingly](https://github.com/pjmattingly))
+  - Replace `_.flatten` with `Array.prototype.flat` ([#11271](https://github.com/serverless/serverless/issues/11271)) ([b36cdf2](https://github.com/serverless/serverless/commit/b36cdf2db6ee25f7defe6f2c02dd40e1d5cb65c4)) ([pjmattingly](https://github.com/pjmattingly))
+- Ignore `doctor` in Compose triage ([#11283](https://github.com/serverless/serverless/issues/11283)) ([ef2dcb6](https://github.com/serverless/serverless/commit/ef2dcb6df7cf5dd4b82a74613d02f22f04b7147a)) ([](https://github.com/)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.21.0](https://github.com/serverless/serverless/compare/v3.20.0...v3.21.0) (2022-07-14)
+
+### Features
+
+- **Console:** Rely on Console ready layers published to AWS ([#11236](https://github.com/serverless/serverless/issues/11236)) ([f9bc405](https://github.com/serverless/serverless/commit/f9bc4051844d1d54259216914fd28048d8749409)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Bug Fixes
+
+- **Console:** Keep currently attached layers with `function deploy` ([#11235](https://github.com/serverless/serverless/issues/11235)) ([198d3b7](https://github.com/serverless/serverless/commit/198d3b7738e36ca1d8e516e257b2be81e04b8e6a)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.20.0](https://github.com/serverless/serverless/compare/v3.19.0...v3.20.0) (2022-07-08)
+
+### Features
+
+- Add `X-Amzn-Trace-Id` to default CORS headers ([#11168](https://github.com/serverless/serverless/issues/11168)) ([9fd56fd](https://github.com/serverless/serverless/commit/9fd56fddbedf85c01d6f4ebd2f63ab26746f6005)) ([Szymon Bartnik](https://github.com/szbartnik))
+- **AWS Local Invocation:**
+  - Support ESM handlers ([#11212](https://github.com/serverless/serverless/issues/11212)) ([675b1db](https://github.com/serverless/serverless/commit/675b1dbed764f70a7443cdd5e4a53c54315fec36)) ([Børge Bardo](https://github.com/borge-bardo-adsk))
+  - Support Node handlers with `.cjs` extension ([#11203](https://github.com/serverless/serverless/pull/11203)) ([688f50d](https://github.com/serverless/serverless/commit/688f50d670b84a1dce097256776651b3138de456)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Bug Fixes
+
+- **AWS Invocation:** Ensure proper log formatting for `invoke` ([#11189](https://github.com/serverless/serverless/pull/11189)) ([c4eb2ad](https://github.com/serverless/serverless/commit/c4eb2ad908cbb4cbf646d9ffc73da31e9db1482f)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- **Console:** Fix console url for platform dev stage case ([#11219](https://github.com/serverless/serverless/pull/11219)) ([543612a](https://github.com/serverless/serverless/commit/543612acbec08a76c085f84ff18578c3875810c2)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **AWS Deploy:** Improve vague S3-related access errors ([#11217](https://github.com/serverless/serverless/pull/11217)) ([1b2ac24](https://github.com/serverless/serverless/commit/1b2ac245666fdd5b903a2ffb8ba5376ecfaab182)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- **CLI:** Recognize `--help` for `compose` triage ([#11137](https://github.com/serverless/serverless/pull/11137)) ([37b29b0](https://github.com/serverless/serverless/commit/37b29b029579191e82348afbf855590c2cb37062)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- **Console:** Report command which originated login operation ([#11220](https://github.com/serverless/serverless/pull/11220)) ([8d4bf4f](https://github.com/serverless/serverless/commit/8d4bf4fbfdf79950e92ad4fbb171f6fa15b11886)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- Improve error message for CLI param validation ([#9846](https://github.com/serverless/serverless/issues/9846)) ([a2ea68d](https://github.com/serverless/serverless/commit/a2ea68d5be4583f71400db4fa4fc27575c8c664b)) ([Matthieu Napoli](https://github.com/mnapoli))
+
+## [3.19.0](https://github.com/serverless/serverless/compare/v3.18.2...v3.19.0) (2022-06-02)
+
+### Features
+
+- **Console:** Support new user settings format ([#11115](https://github.com/serverless/serverless/issues/11115)) ([21461b5](https://github.com/serverless/serverless/commit/21461b5581bb759c259e82295fde952d907112b3)) ([Mariusz Nowak](https://github.com/medikoo))
+- Recognize `Fn::Select` in `environment` config schema ([#11114](https://github.com/serverless/serverless/issues/11114)) ([ed111e0](https://github.com/serverless/serverless/commit/ed111e021b286eb4a68f9b2fce7fb641e03340bd)) ([John Minns](https://github.com/Johnogram))
+
+### Maintenance Improvements
+
+- Improve CLI messages when onboarding into Console ([#11123](https://github.com/serverless/serverless/issues/11123)) ([cefb762](https://github.com/serverless/serverless/commit/cefb7623355508aab0fdcbeaa8519c61c8bf6291)) ([Matthieu Napoli](https://github.com/mnapoli))
+
+### [3.18.2](https://github.com/serverless/serverless/compare/v3.18.1...v3.18.2) (2022-05-23)
+
+### Bug Fixes
+
+- **AWS Deploy:** Ensure to only remove specific stage deploy artifacts ([#11100](https://github.com/serverless/serverless/pull/11100)) ([9eae965](https://github.com/serverless/serverless/commit/9eae9652bdfca78eeb29bc4e9dfd4f8a12125d56)) ([Ryan Hartkopf](https://github.com/ryanhartkopf))
+
+### Maintenance Improvements
+
+- **Console:** Upgrade `@serverless/aws-lambda-otel-extension` ([#11106](https://github.com/serverless/serverless/pull/11106)) ([5327b70](https://github.com/serverless/serverless/commit/5327b702f755b13283562337c18051d87805916f)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Telemetry:** Recognize `isUsingCompose` ([#11105](https://github.com/serverless/serverless/pull/11105)) ([007c294](https://github.com/serverless/serverless/commit/007c294211954e3fdb034030eacd1f01e63920bf)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### [3.18.1](https://github.com/serverless/serverless/compare/v3.18.0...v3.18.1) (2022-05-20)
+
+### Bug Fixes
+
+- **CLI Onboarding:**
+  - Recognize Dashboard providers for deployment when Dashboard monitoring is turned off ([#11096](https://github.com/serverless/serverless/issues/11096)) ([38ff287](https://github.com/serverless/serverless/commit/38ff287bc79614803b82ada3728c1432381bc59b)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Support Dashboard providers with the Console enabled ([#11096](https://github.com/serverless/serverless/issues/11096)) ([8825e86](https://github.com/serverless/serverless/commit/8825e867d833a28ace051047ce17bf3cdc3e7526)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Console:** Improve user error message ([#11094](https://github.com/serverless/serverless/issues/11094)) ([6748642](https://github.com/serverless/serverless/commit/67486421235dc8d7a76f760eecb68b1a13b13fb2)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.18.0](https://github.com/serverless/serverless/compare/v3.17.0...v3.18.0) (2022-05-19)
+
+### Features
+
+- **Console:**
+  - Switch to a new authentication system ([#11060](https://github.com/serverless/serverless/issues/11060)) ([d40866a](https://github.com/serverless/serverless/commit/d40866a0e845123ceecdd5b2b05e96e8dde09b04)) ([Mariusz Nowak](https://github.com/medikoo))
+  - In uneven scenario let user decide whether intent is to login into the Dashboard or the Console([#11045](https://github.com/serverless/serverless/issues/11045)) ([0f21362](https://github.com/serverless/serverless/commit/0f2136209199dad43410b0a71b2fa2c211a027a7)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Report `org` mismatch with a meaningful error ([#11060](https://github.com/serverless/serverless/issues/11060)) ([ecaeb1f](https://github.com/serverless/serverless/commit/ecaeb1f1bb210e8f6eced3011ce54ab854d23ff8)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Support `console.org` setting (so different `org` settings can be used for the Dashboard and the Console) ([#11060](https://github.com/serverless/serverless/issues/11060)) ([3b3cfae](https://github.com/serverless/serverless/commit/3b3cfae4986f0e022b8906ec59743482a5540068)) ([Mariusz Nowak](https://github.com/medikoo))
+- **AWS MSK:** Add support for SASL/SCRAM authentication ([#11060](https://github.com/serverless/serverless/issues/11060)) ([184cb03](https://github.com/serverless/serverless/commit/184cb030a87a20d0491ee3d79244ca017d44aabf)) ([Ariel Gordone](https://github.com/Arielgordon123))
+- **AWS S3:** Support `forceDeploy` setting ([#11066](https://github.com/serverless/serverless/issues/11066)) ([5af44a4](https://github.com/serverless/serverless/commit/5af44a478e66cb7361dd09a79e9acc1869552f19)) ([Simon Archer](https://github.com/simonarcher99))
+- **AWS Lambda:** Recognize all variants of supported log retention days ([#11076](https://github.com/serverless/serverless/issues/11076)) ([a4d0ad5](https://github.com/serverless/serverless/commit/a4d0ad530b1c473cdb09ac1428717660b8b9ad5c)) ([Brian Celenza](https://github.com/bcelenza))
+
+### Bug Fixes
+
+- **AWS Lambda:** Fix support for lambdas with provisioned concurrency on with `url: true` ([#11045](https://github.com/serverless/serverless/issues/11045)) ([2107aec](https://github.com/serverless/serverless/commit/2107aec965e4e1e0cec98c3e2f0ff8dcc534a333)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- **CLI:** Fix CLI command validation when using custom providers ([#11080](https://github.com/serverless/serverless/issues/11080)) ([5004fb1](https://github.com/serverless/serverless/commit/5004fb1ea0ba168d6a7ccc0d07070e6b716f78a2)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Variables:** Fix reporting of unresolved sources ([#11080](https://github.com/serverless/serverless/issues/11080)) ([77e21f9](https://github.com/serverless/serverless/commit/77e21f904568db00f6e1491dd0dcdfe605fa592d)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Console:**
+  - Rely on generic `apiRequest` for ingestion tokens rotation ([#11060](https://github.com/serverless/serverless/issues/11060)) ([#11060](https://github.com/serverless/serverless/issues/11060)) ([0cecae7](https://github.com/serverless/serverless/commit/0cecae75ffad4b7b89148b614d0bb82dc3b3501c)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Separate Dashboard & Console login logic ([#11060](https://github.com/serverless/serverless/issues/11060)) ([443fa4b](https://github.com/serverless/serverless/commit/443fa4b74d1fceeb4798ba2b6acb31281b80756e)) ([Mariusz Nowak](https://github.com/medikoo))
+- **CLI Onboarding:** Generalize `isConsole` resolution ([#11060](https://github.com/serverless/serverless/issues/11060)) ([caaa3c8](https://github.com/serverless/serverless/commit/caaa3c811e9f777c84fe91ea73b63eb609032b3b)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.17.0](https://github.com/serverless/serverless/compare/v3.16.0...v3.17.0) (2022-05-10)
+
+### Features
+
+- **AWS Lambda:** Add support for `nodejs16.x` runtime ([#11049](https://github.com/serverless/serverless/issues/11049)) ([719766b](https://github.com/serverless/serverless/commit/719766b03088f6acf4045c83045ec2d220c11819)) ([Hibanka](https://github.com/Hibanka))
+- **AWS Websocket:** Allow propagating tags to Websocket APIGW ([#10931](https://github.com/serverless/serverless/issues/10931)) ([22e4842](https://github.com/serverless/serverless/commit/22e4842d97ac3cbc11d8c398e84639af0b6068b8)) ([tjurdzinski](https://github.com/tjurdzinski))
+
+## [3.16.0](https://github.com/serverless/serverless/compare/v3.15.2...v3.16.0) (2022-04-29)
+
+### Features
+
+- **AWS Deploy:** New option to deploy with CloudFormation without using changesets, which is faster. Learn more [in the documentation](https://www.serverless.com/framework/docs/providers/aws/guide/deploying#deployment-method). ([#11016](https://github.com/serverless/serverless/pull/11016)) ([efa3a28](https://github.com/serverless/serverless/commit/efa3a28f0727602b02989c731054697608c22bbc)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Bug Fixes
+
+- **CLI:** Do not run `compose` for non-service commands ([#11017](https://github.com/serverless/serverless/pull/11017)) ([e56bc4b](https://github.com/serverless/serverless/commit/e56bc4be0c5941e76a6433782aa1462b83f5d13f)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- Allow S3 event rule prefix and suffix to use CF functions ([#11018](https://github.com/serverless/serverless/issues/11018)) ([0279e1e](https://github.com/serverless/serverless/commit/0279e1eb9d79abce52c595b3cde190ff96599e42)) ([Matthew Crouch](https://github.com/macrouch))
+- Ensure to attempt minimal config resolution for plugin commands ([#11005](https://github.com/serverless/serverless/pull/11005)) ([af9a238](https://github.com/serverless/serverless/commit/af9a238f852fb04fbfcdfa57b9b313426f579bd1)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- Ensure to not add double entries during `plugin install` ([#11005](https://github.com/serverless/serverless/pull/11005)) ([c4ca97d](https://github.com/serverless/serverless/commit/c4ca97d0100a28d02012b144c1a9ba06f7ac7dc6)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Maintenance Improvements
+
+- **AWS Local Invocation:** Rely on observable spawn ([#11002](https://github.com/serverless/serverless/pull/11002)) ([6d97496](https://github.com/serverless/serverless/commit/6d9749699da62a07ae933bd2c9a9ced8ccf877df)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:**
+  - Configure `login` as standalone command ([#11003](https://github.com/serverless/serverless/pull/11003)) ([fffaf9c](https://github.com/serverless/serverless/commit/fffaf9cee2da00bdb4f8d13846ad216d4dee13ef)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Configure `logout` as standalone command ([#11003](https://github.com/serverless/serverless/pull/11003)) ([70ca359](https://github.com/serverless/serverless/commit/70ca3594b6fbc1118b24c2bc4975219f6c00cbd0)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.15.2](https://github.com/serverless/serverless/compare/v3.15.1...v3.15.2) (2022-04-22)
+
+### Maintenance Improvements
+
+- **Console:** Report requests and responses to server ([#10999](https://github.com/serverless/serverless/pull/10999)) ([fa8243f](https://github.com/serverless/serverless/commit/fa8243f960df372b644e791374842f04bfab7857)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.15.1](https://github.com/serverless/serverless/compare/v3.15.0...v3.15.1) (2022-04-22)
+
+### Maintenance Improvements
+
+- **Console:**
+  - Propagate `disableLogsCollection` to extension user settings ([#10995](https://github.com/serverless/serverless/pull/10995)) ([4521eb7](https://github.com/serverless/serverless/commit/4521eb7e3b3eb72af7c535fda9cf6efcb4a1e140)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Support `disableRequestResponseMonitoring` setting ([#10995](https://github.com/serverless/serverless/pull/10995)) ([e5c088f](https://github.com/serverless/serverless/commit/e5c088fe2e2de99e0da464abb36c785741b5b085)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Telemetry:**
+  - Fix Console org reporting ([#10995](https://github.com/serverless/serverless/pull/10995)) ([c0aabb4](https://github.com/serverless/serverless/commit/c0aabb484531c5227f42791cdb9e644c402a5c8d)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Debug log for telemetry payload ([#10995](https://github.com/serverless/serverless/pull/10995)) ([db67962](https://github.com/serverless/serverless/commit/db6796257f41618ad7da440ca5b2e46fae971fe1)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.15.0](https://github.com/serverless/serverless/compare/v3.14.0...v3.15.0) (2022-04-20)
+
+### Features
+
+- Introduce [Serverless Framework Compose](https://www.serverless.com/framework/docs/guides/compose), a new feature that enables deploying multiple services in one command, in parallel, or ordered by dependencies
+
+### Maintenance Improvements
+
+- Handle `@serverless/compose` install in non-interactive environments ([#10984](https://github.com/serverless/serverless/pull/10984)) ([75885cb](https://github.com/serverless/serverless/commit/75885cbbc5165aa4f27be4aab179e9e2655c1d99)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- Support custom error message for variables resolution ([#10985](https://github.com/serverless/serverless/pull/10985)) ([f7ffb19](https://github.com/serverless/serverless/commit/f7ffb1978804ce01fc14d14866529378ebc1c1e2)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.14.0](https://github.com/serverless/serverless/compare/v3.13.0...v3.14.0) (2022-04-14)
+
+### Features
+
+- **AWS Websocket:** Add ability to configure log format and types ([#10956](https://github.com/serverless/serverless/pull/10956)) ([82ce1c8](https://github.com/serverless/serverless/commit/82ce1c83d23008a5f7b48d149fcaac828c782871)) ([Ariette](https://github.com/Ariette))
+
+### Maintenance Improvements
+
+- Enable triage process to run `@serverless/compose` ([#10950](https://github.com/serverless/serverless/issues/10950)) ([401c721](https://github.com/serverless/serverless/commit/401c721f8e1c59441ba3e5bb44bb2ce34576d99d)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.13.0](https://github.com/serverless/serverless/compare/v3.12.0...v3.13.0) (2022-04-13)
+
+### Features
+
+- **Variables:** Ensure support for promise properties at `file` source ([#10949](https://github.com/serverless/serverless/pull/10949)) ([8dae213](https://github.com/serverless/serverless/commit/8dae21375801be00f24d68d6a3e12854132b7bb9)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Bug Fixes
+
+- **AWS API Gateway:** Correctly construct resource name for schema ([#10940](https://github.com/serverless/serverless/pull/10940)) ([0a0f6c6](https://github.com/serverless/serverless/commit/0a0f6c6102b3cb8921ef7448d5b3a8f1294b6802)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- **AWS Local Invocation:** Ensure environment variables resolution for docker invoke ([#10962](https://github.com/serverless/serverless/issues/10962)) ([1a8e7d9](https://github.com/serverless/serverless/commit/1a8e7d948efe696cd4970f73ac4262cc15ebe977)) ([Sergii Dolgushev](https://github.com/SerheyDolgushev))
+- **CLI:** Do not attempt to resolve full config for `login` ([#10942](https://github.com/serverless/serverless/pull/10942)) ([9b62d14](https://github.com/serverless/serverless/commit/9b62d14e691eedafcefc0cc414c82f3f7d13636d)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- **Standalone:** Ensure proper `npm` bundling ([#10941](https://github.com/serverless/serverless/pull/10941)) ([cf482f0](https://github.com/serverless/serverless/commit/cf482f01700ddd0946e71ad5e7d2ca0d06cc49a3)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Maintenance Improvements
+
+- **Console:** Document `--console` with a link to documentation ([#10951](https://github.com/serverless/serverless/pull/10951)) ([23a5ea3](https://github.com/serverless/serverless/commit/23a5ea3a3a53a2e9fb7f1a65160d22c8868ddbbe)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Telemetry:** Ensure to pass unique id with events ([#10966](https://github.com/serverless/serverless/pull/10966)) ([3bcff79](https://github.com/serverless/serverless/commit/3bcff796f1046c09c4f7f9c0545f6393a332c4c0)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.12.0](https://github.com/serverless/serverless/compare/v3.11.0...v3.12.0) (2022-04-06)
+
+### Features
+
+- **AWS Lambda:** Add support for function URLs ([#10936](https://github.com/serverless/serverless/pull/10936)) ([d215517](https://github.com/serverless/serverless/commit/d215517cf009ded63e50cd37e55c0be99bdba754)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Maintenance Improvements
+
+- **CLI:** Fix typos in `create` CLI messages ([#10933](https://github.com/serverless/serverless/issues/10933)) ([26f79aa](https://github.com/serverless/serverless/commit/26f79aaf19f39725e81461ee06b79cb00a6d14db)) ([Petri Partio](https://github.com/peritpatrio))
+
+## [3.11.0](https://github.com/serverless/serverless/compare/v3.10.2...v3.11.0) (2022-04-04)
+
+### Features
+
+- **AWS RabbitMQ:** Support `virtualHost` ([#10814](https://github.com/serverless/serverless/issues/10814)) ([e21fb75](https://github.com/serverless/serverless/commit/e21fb756fc8625c7dc1bfe86137effbcf09f8287)) ([Rudolf Nel](https://github.com/EnterNameHere7))
+- **CLI Onboarding:** Support all runtimes for dashboard (with limited functionality) ([#10922](https://github.com/serverless/serverless/pull/10922)) ([0ca0cff](https://github.com/serverless/serverless/commit/0ca0cfffda6dbf5c3179a6d2de4b2dd52e07af59)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### [3.10.2](https://github.com/serverless/serverless/compare/v3.10.1...v3.10.2) (2022-03-31)
+
+### Maintenance Improvements
+
+- **Console:** Report logs with opt out option ([#10919](https://github.com/serverless/serverless/issues/10193)) ([ababd90](https://github.com/serverless/serverless/commit/ababd90f098f922a92a79ca7bdb00a3dfe112c6b)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.10.1](https://github.com/serverless/serverless/compare/v3.10.0...v3.10.1) (2022-03-30)
+
+### Bug Fixes
+
+- **AWS Deploy:** Apply stack policy after executing change sets ([#10903](https://github.com/serverless/serverless/issues/10903)) ([2d2cb3e](https://github.com/serverless/serverless/commit/2d2cb3ed11919ccdb5b99e8316906ad5eccd836f)) ([Mark Tse](https://github.com/neverendingqs))
+- **AWS Local Invocation:**
+  - Ensure proper artifact permissions for `rust` functions ([#10891](https://github.com/serverless/serverless/issues/10891)) ([11dd77e](https://github.com/serverless/serverless/commit/11dd77ecde61b690023067dacdabf759121cd17c)) ([Sergii Dolgushev](https://github.com/SerheyDolgushev))
+  - Ensure package before resolving runtime ([#10888](https://github.com/serverless/serverless/pull/10888)) ([80b3e1a](https://github.com/serverless/serverless/commit/80b3e1a9e59746dd795828207a2badf683638df4)) ([Sergii Dolgushev](https://github.com/SerheyDolgushev))
+
+### Maintenance Improvements
+
+- **AWS Deploy:** Ensure no internal dependency on `console` ([#10908](https://github.com/serverless/serverless/pull/10908)) ([2a8ef3e](https://github.com/serverless/serverless/commit/2a8ef3ed5abc6497b9552e1786586468d66d806a)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Telemetry:** Send more frequently to avoid too big payloads ([#10909](https://github.com/serverless/serverless/pull/10909)) ([889e1b6](https://github.com/serverless/serverless/commit/889e1b67bf1637e6f78bef83ac036937df50ebce)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.10.0](https://github.com/serverless/serverless/compare/v3.9.0...v3.10.0) (2022-03-25)
+
+### Features
+
+- **AWS Lambda:** Support `ephemeralStorageSize` ([#10901](https://github.com/serverless/serverless/pull/10901)) ([d317cff](https://github.com/serverless/serverless/commit/d317cff875535a0de47578e12de395b1d52043a0)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.9.0](https://github.com/serverless/serverless/compare/v3.8.0...v3.9.0) (2022-03-24)
+
+### Features
+
+- **AWS Lambda:** Support `Ref` for `destinations` properties ([#10845](https://github.com/serverless/serverless/issues/10845)) ([9e0ca03](https://github.com/serverless/serverless/commit/9e0ca03900feb19be21ebe7498ed0fc592af37e0)) ([ALOHACREPES345](https://github.com/ALOHACREPES345))
+
+### Bug Fixes
+
+- **AWS Deploy:**
+  - Fix handling of state file in check for changes logic ([#10885](https://github.com/serverless/serverless/pull/10885)) ([12d95dc](https://github.com/serverless/serverless/commit/12d95dcee1985ff32c02e1ba507a236eceab65ba)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Recognize otel extension in check for changes logic ([#10885](https://github.com/serverless/serverless/pull/10885)) ([6da0b65](https://github.com/serverless/serverless/commit/6da0b6554ee1d42dca4f02ac874ff8e992051de0)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:** Ensure single layer attachment with `package.individually` ([#10895](https://github.com/serverless/serverless/pull/10895)) ([fac8a73](https://github.com/serverless/serverless/commit/fac8a73eec9ed6a6cf7535a1c723da3cb882905a)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **AWS Deploy:**
+  - Debug logs for check for changes logic ([#10885](https://github.com/serverless/serverless/pull/10885)) ([9f76f19](https://github.com/serverless/serverless/commit/9f76f19cf3cfe1e3e7e74953d15e5feb9cd875ac)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Debug logs for logs subscription check ([#10885](https://github.com/serverless/serverless/pull/10885)) ([895f320](https://github.com/serverless/serverless/commit/895f320c60da21daf12afaab91e967576294f374)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Improve internal resolution of hashes ([#10885](https://github.com/serverless/serverless/pull/10885)) ([711b643](https://github.com/serverless/serverless/commit/711b6439e06552d5c2bb411299b851f8f39f8a76)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Refactor `getMostRecentObjects` to async/await ([#10885](https://github.com/serverless/serverless/pull/10885)) ([1461860](https://github.com/serverless/serverless/commit/1461860dabe6f5154ee0d5e69b4c1ed16eb05616)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Refactor to async/await ([#10885](https://github.com/serverless/serverless/pull/10885)) ([8bb306b](https://github.com/serverless/serverless/commit/8bb306b56f763f474e0c5cf32f07724223ca7f2a)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Refactor to native promises ([#10885](https://github.com/serverless/serverless/pull/10885)) ([c5970e7](https://github.com/serverless/serverless/commit/c5970e72a3129c349f719009deff017fce430e69)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:**
+  - Do not disable dashboard with console ([#10895](https://github.com/serverless/serverless/pull/10895)) ([e6cdc9d](https://github.com/serverless/serverless/commit/e6cdc9d68bed6bafb78bbb1bf4490e5dc35c4fdd)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Ensure to list extension layer in layers output ([#10895](https://github.com/serverless/serverless/pull/10895)) ([14109e8](https://github.com/serverless/serverless/commit/14109e8ec475c71170215154b8ad92aecdb5f432)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Improve error reporting when layer cannot be added ([#10895](https://github.com/serverless/serverless/pull/10895)) ([ba71dd9](https://github.com/serverless/serverless/commit/ba71dd9fb527ebac854e4a12b974581f4de6e57e)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.8.0](https://github.com/serverless/serverless/compare/v3.7.9...v3.8.0) (2022-03-21)
+
+### Features
+
+- **AWS Lambda:**
+  - Recognize `Fn::If` for properties of `vpc` ([#10877](https://github.com/serverless/serverless/issues/10877)) ([6a86ed7](https://github.com/serverless/serverless/commit/6a86ed77f8f9702f033b043f47d781d60ab76d4e)) ([ALOHACREPES345](https://github.com/ALOHACREPES345))
+  - Support `logRetentionInDays` per function ([#10878](https://github.com/serverless/serverless/issues/10878)) ([4c25184](https://github.com/serverless/serverless/commit/4c25184ca0cffa273c4171f5fccac52ab8ee3413)) ([ALOHACREPES345](https://github.com/ALOHACREPES345))
+
+### [3.7.9](https://github.com/serverless/serverless/compare/v3.7.8...v3.7.9) (2022-03-18)
+
+### Bug Fixes
+
+- **CLI Onboarding:** Ensure to process fully resolved service config ([#10873](https://github.com/serverless/serverless/pull/10873)) ([6a1f083](https://github.com/serverless/serverless/commit/6a1f083ac80aa9ba04e072b55f53ea1a4367fc2a)) ([Mariusz Nowak](https://github.com/medikoo))
+- **CLI Onboarding:** Improve fix for initial variables resolution ([#10873](https://github.com/serverless/serverless/pull/10873)) ([1f12b19](https://github.com/serverless/serverless/commit/1f12b19a22bd40ce34c8bf45f090e46074409887)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:** Prevent AWS region mismatch ([#10873](https://github.com/serverless/serverless/pull/10873)) ([43480ee](https://github.com/serverless/serverless/commit/43480ee872d7d999d398eccdf56172860d40be56)) ([Mariusz Nowak](https://github.com/medikoo))
+- Fix internal unrecognized command error processing ([#10873](https://github.com/serverless/serverless/pull/10873)) ([a89e36a](https://github.com/serverless/serverless/commit/a89e36a0e73df141a486b8a151bb2cfb228a9f5d)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **CLI:** Configure processing flow debug logs ([#10873](https://github.com/serverless/serverless/pull/10873)) ([7af0c8c](https://github.com/serverless/serverless/commit/7af0c8cb07ee056e0224d35fdcdbac4ead004cee)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:** Present url to console UI ([#10873](https://github.com/serverless/serverless/pull/10873)) ([0d9f866](https://github.com/serverless/serverless/commit/0d9f86620b9c600dfecaf2a194a499b57c5bac0c)) ([Mariusz Nowak](https://github.com/medikoo))
+- Upgrade to async/await ([#10873](https://github.com/serverless/serverless/pull/10873)) ([8c7731d](https://github.com/serverless/serverless/commit/8c7731d4376fb7ae4998a37b2a196e4fb80107ba)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.7.8](https://github.com/serverless/serverless/compare/v3.7.7...v3.7.8) (2022-03-17)
+
+### Bug Fixes
+
+- **Console:**
+  - Fix reference to bucket name in CF template ([#10869](https://github.com/serverless/serverless/pull/10869)) ([fcaa9c2](https://github.com/serverless/serverless/commit/fcaa9c2c4f756b552ba990438df8866e304f3b56)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Fix upload of extension to S3 bucket ([#10869](https://github.com/serverless/serverless/pull/10869)) ([23719d8](https://github.com/serverless/serverless/commit/23719d868c0b4270b57ea025a4271c62a58cb65f)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.7.7](https://github.com/serverless/serverless/compare/v3.7.6...v3.7.7) (2022-03-17)
+
+### Bug Fixes
+
+- **Console:** Respect custom deployment bucket configuration ([#10867](https://github.com/serverless/serverless/pull/10867)) ([4d705cc](https://github.com/serverless/serverless/commit/4d705cc96d1bec29c3328879e41a71f907b0696d)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Console:**
+  - Generalize internal `bucketName` resolution ([#10867](https://github.com/serverless/serverless/pull/10867)) ([103fc55](https://github.com/serverless/serverless/commit/103fc554fc21bf7f8f16a634836bfe10d5109446)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Report used layer extension version to telemetry ([#10867](https://github.com/serverless/serverless/pull/10867)) ([db89f20](https://github.com/serverless/serverless/commit/db89f20f01b66c7dfc81f1571dfb215ba85daa24)) ([Mariusz Nowak](https://github.com/medikoo))
+- **CLI:** Support internally a temporary `SLS_DISABLE_AUTO_UPDATE` env var ([c939457](https://github.com/serverless/serverless/commit/c939457ba46232b247a691b23c95f8408eba406f)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### [3.7.6](https://github.com/serverless/serverless/compare/v3.7.5...v3.7.6) (2022-03-17)
+
+### Bug Fixes
+
+- **Standalone:** Ensure error in China upload don't break GitHub upload ([#10853](https://github.com/serverless/serverless/pull/10853)) ([2b8afac](https://github.com/serverless/serverless/commit/2b8afac5ecf879a6e979c5a4642ededeca4a5cf7)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:** Ensure to package extension without errors ([#10860](https://github.com/serverless/serverless/pull/10860)) ([64ee4a5](https://github.com/serverless/serverless/commit/64ee4a528815354905b1f5c92fb7ba1e1604e4b4)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **Console:** Upgrade to rely on v0.2 version of extension ([#10837](https://github.com/serverless/serverless/pull/10837)) ([3ccfec1](https://github.com/serverless/serverless/commit/3ccfec1abdace3abb3e7484d51feb532ad37dda0)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.7.5](https://github.com/serverless/serverless/compare/v3.7.4...v3.7.5) (2022-03-14)
+
+### Bug Fixes
+
+- **AWS Kafka:** Allow usage of Server Root CA without client TLS auth ([#10837](https://github.com/serverless/serverless/pull/10837)) ([6a6417c](https://github.com/serverless/serverless/commit/6a6417c29fe6c06286562ab7604536004bf62334)) ([Fabian Desoye](https://github.com/fdesoye))
+- **CLI:** Ensure proper resolution of options for service commands ([#10846](https://github.com/serverless/serverless/issues/10846)) ([dd421cc](https://github.com/serverless/serverless/commit/dd421cc8a65816c59572c581e275455f9793754e)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Maintenance Improvements
+
+- **Console:** Dynamically resolve latest version of the extension ([#10842](https://github.com/serverless/serverless/pull/10842)) ([c28c48c](https://github.com/serverless/serverless/commit/c28c48c6a131201448c6018d6e6951d7d9131eeb)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.7.4](https://github.com/serverless/serverless/compare/v3.7.3...v3.7.4) (2022-03-10)
+
+### Bug Fixes
+
+- **AWS Local Invocation:** Remove log4j dependency from java wrapper ([#10832](https://github.com/serverless/serverless/pull/10832)) ([8b17338](https://github.com/serverless/serverless/commit/8b1733807fe76b01f03880652111f8085a664e31)) ([Yuji Yamano](https://github.com/yyamano))
+
+### Maintenance Improvements
+
+- **Console:** Communicate new token implications with verbose mode ([#10835](https://github.com/serverless/serverless/pull/10835)) ([7e56aa1](https://github.com/serverless/serverless/commit/7e56aa17939021c920ba4046684386016b8f7a1f)) ([Mariusz Nowak](https://github.com/medikoo))
+
+## [3.7.3](https://github.com/serverless/serverless/compare/v3.7.2...v3.7.3) (2022-03-09)
+
+### Bug Fixes
+
+- **CLI Onboarding:**
+  - Enable Console in config, only with `--console` ([#10825](https://github.com/serverless/serverless/pull/10825)) ([b173d90](https://github.com/serverless/serverless/commit/b173d90e643a472817f90c9d9a31d4924d35c56f)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Ensure to enable Console when commented out ([#10825](https://github.com/serverless/serverless/pull/10825)) ([f0bff74](https://github.com/serverless/serverless/commit/f0bff7463c29e346dc61aa05db2c6f530b9282fb)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Fix `initialContext.isDashboardEnabled` resolution ([#10825](https://github.com/serverless/serverless/pull/10825)) ([10c24f6](https://github.com/serverless/serverless/commit/10c24f6398bf8fc987cb2e79fd33ee70964b7836)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Fix `isConsole` resolution in `login` step ([#10825](https://github.com/serverless/serverless/pull/10825)) ([688bfcf](https://github.com/serverless/serverless/commit/688bfcf00d276dcc39dc1b67e9a673ccbdc78512)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Fix resolution of onboarding message ([#10825](https://github.com/serverless/serverless/pull/10825)) ([624536f](https://github.com/serverless/serverless/commit/624536f77ebe1a0cd6759cb90ef1cb9a209fb64d)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Leave `app` intact with also enabled Dashboard ([#10825](https://github.com/serverless/serverless/pull/10825)) ([a043624](https://github.com/serverless/serverless/commit/a0436248e7b127b56b5444a67870ea2671de0a21)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Prevent side-effects of not supported `app` option ([#10825](https://github.com/serverless/serverless/pull/10825)) ([0c65663](https://github.com/serverless/serverless/commit/0c65663861b80a4fbd395018141ed90dd41cbdce)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Setup `app` when Console and Dashboard enabled ([#10825](https://github.com/serverless/serverless/pull/10825)) ([bffbfe3](https://github.com/serverless/serverless/commit/bffbfe32fd54f5f1fa01db3fcbb81287be246092)) ([Mariusz Nowak](https://github.com/medikoo))
+  - With Console always favor console messaging ([#10825](https://github.com/serverless/serverless/pull/10825)) ([f0d441e](https://github.com/serverless/serverless/commit/f0d441e0d469640e04d880b81e361da539aa5f62)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### Maintenance Improvements
+
+- **CLI Onboarding:**
+  - Support joint Console (experimental) & Dashboard configurations ([#10825](https://github.com/serverless/serverless/pull/10825)) ([48609f7](https://github.com/serverless/serverless/commit/48609f72762ffe8eabd9415084eed42e01ea061e)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Hide not supported templates with console ([#10825](https://github.com/serverless/serverless/pull/10825)) ([79e156f](https://github.com/serverless/serverless/commit/79e156f7ac70d997093d2b2ca127f0844cab121a)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Reorganize `writeOrgAppAndConsole` input ([#10825](https://github.com/serverless/serverless/pull/10825)) ([fc9dc1d](https://github.com/serverless/serverless/commit/fc9dc1dc4022163ff6f28f1ee6de2db85fd56202)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Reorganize internal variables ([#10825](https://github.com/serverless/serverless/pull/10825)) ([25d2e7a](https://github.com/serverless/serverless/commit/25d2e7a2a0932f40ac5114702fce74a0caa9c019)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Support future object notation for `console` ([#10825](https://github.com/serverless/serverless/pull/10825)) ([2f187a5](https://github.com/serverless/serverless/commit/2f187a52eb3a14c6e94d00a37ded64ed75914d3f)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Console:** Unify headers resolution ([#10825](https://github.com/serverless/serverless/pull/10825)) ([494fb26](https://github.com/serverless/serverless/commit/494fb2662f910449eb0b7ad3f6caeb1c77486501)) ([Mariusz Nowak](https://github.com/medikoo))
+- **Telemetry:**
+  - Expose `initialContext.isConsoleEnabled` ([#10825](https://github.com/serverless/serverless/pull/10825)) ([f580883](https://github.com/serverless/serverless/commit/f580883d48027065e9e9aff77ee49c9c1a61fedd)) ([Mariusz Nowak](https://github.com/medikoo))
+  - Ensure to not leak `false` as empty value ([#10825](https://github.com/serverless/serverless/pull/10825)) ([167a77e](https://github.com/serverless/serverless/commit/167a77ecaecc4da92f629d1aa075eb1a62831916)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [3.7.2](https://github.com/serverless/serverless/compare/v3.7.1...v3.7.2) (2022-03-08)
+
+### Bug Fixes
+
+- Ensure to properly support moving directories across filesystems ([#10796](https://github.com/serverless/serverless/pull/10796)) ([d06b64d](https://github.com/serverless/serverless/commit/d06b64d4b9e8203945ad946495ff300d9852b37c)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Maintenance Improvements
+
+- **AWS Lambda:** Support `provisionedConcurrency` set to `0` ([#10798](https://github.com/serverless/serverless/pull/10798)) ([e40ba43](https://github.com/serverless/serverless/commit/e40ba43b84b373a1ef4ac92abc7bf41315ecf955)) ([Dustin Fay](https://github.com/d-fay))
+- **Standalone:** Update Tencent CLI standalone download URL ([#10811](https://github.com/serverless/serverless/issues/10811)) ([e26625a](https://github.com/serverless/serverless/commit/e26625a58ce96776f241037b00a190a89ecd6d45)) ([Tim Qian](https://github.com/timqian))
+- **Telemetry:** Ensure excluding `shouldSendTelemetry` from payload ([#10810](https://github.com/serverless/serverless/pull/10810)) ([9c6423b](https://github.com/serverless/serverless/commit/9c6423bc5c5d81b977d03d3412b4a2ab05bf4513)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### [3.7.1](https://github.com/serverless/serverless/compare/v3.7.0...v3.7.1) (2022-03-02)
+
+### Bug Fixes
+
+- **CLI Onboarding:** Ensure improved variables resolution for existing templates ([#10784](https://github.com/serverless/serverless/pull/10784)) ([17df292](https://github.com/serverless/serverless/commit/17df2928cfb2efa8eab27e625b4609f8047eab5a)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+### Maintenance Improvements
+
+- **Telemetry:** Rely on direct evaluation of `isTtyTerminal` ([#10786](https://github.com/serverless/serverless/pull/10786)) ([e29253f](https://github.com/serverless/serverless/commit/e29253fbeb17764644ef97c61c0a88892cda4136)) ([Piotr Grzesik](https://github.com/pgrzesik))
+- Recognize `logout` as service-aware command ([#10785](https://github.com/serverless/serverless/pull/10785)) ([21c783d](https://github.com/serverless/serverless/commit/21c783dc16dfd00385c907729a67a2fcccda4498)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.7.0](https://github.com/serverless/serverless/compare/v3.6.0...v3.7.0) (2022-03-01)
+
+### Features
+
+- **CLI Onboarding:** Support `--console` flag ([#10779](https://github.com/serverless/serverless/pull/10779)) ([a34d07a](https://github.com/serverless/serverless/commit/a34d07a5c129e21d1a0b902479bcaa4a92c158fb)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
+## [3.6.0](https://github.com/serverless/serverless/compare/v3.5.1...v3.6.0) (2022-03-01)
+
+### Features
+
+- **Variables:** Add support for `csj` in `file` source ([#10776](https://github.com/serverless/serverless/issues/10776)) ([df08283](https://github.com/serverless/serverless/commit/df0828381057b7edb2731f3763c2d60eed126d8a)) ([Julian Grinblat](https://github.com/perrin4869))
+
+### Maintenance Improvements
+
+- **Console:** Support login with Console ([#10777](https://github.com/serverless/serverless/pull/10777)) ([4ce1088](https://github.com/serverless/serverless/commit/4ce10883b5aca692a534be8114733fafc5c02a0e)) ([Piotr Grzesik](https://github.com/pgrzesik))
+
 ### [3.5.1](https://github.com/serverless/serverless/compare/v3.5.0...v3.5.1) (2022-02-28)
 
 ### Bug Fixes
@@ -265,6 +777,12 @@ Read the [**complete v3 Upgrade Guide**](https://www.serverless.com/framework/do
 - Replace `ncjsm/resolve` usage with native `createRequire` ([#10503](https://github.com/serverless/serverless/issues/10503)) ([d18efc2](https://github.com/serverless/serverless/commit/d18efc2d43789dc11857d677851ba4b66e09a6a4)) ([Mariusz Nowak](https://github.com/medikoo))
 - Adapt to rename in `@serverless/dashboard-plugin` ([#10543](https://github.com/serverless/serverless/issues/10543)) ([88234a5](https://github.com/serverless/serverless/commit/88234a51233e74b3155427a5bf0a4022ec182c04)) ([Mariusz Nowak](https://github.com/medikoo))
 - Upgrade `@serverless/utils` to v6 ([74d9c70](https://github.com/serverless/serverless/commit/74d9c70f8abbfab1af4c6440ed93fd163145a597)) ([Mariusz Nowak](https://github.com/medikoo))
+
+### [2.72.3](https://github.com/serverless/serverless/compare/v2.72.2...v2.72.3) (2022-02-22)
+
+### Maintenance Improvements
+
+- Improve CLI options deprecation message ([#10740](https://github.com/serverless/serverless/pull/10740)) ([58ed08c](https://github.com/serverless/serverless/commit/58ed08c9ff5bf4d41256c462a72aad7e580b5551)) ([Piotr Grzesik](https://github.com/pgrzesik))
 
 ### [2.72.2](https://github.com/serverless/serverless/compare/v2.72.1...v2.72.2) (2022-01-24)
 
